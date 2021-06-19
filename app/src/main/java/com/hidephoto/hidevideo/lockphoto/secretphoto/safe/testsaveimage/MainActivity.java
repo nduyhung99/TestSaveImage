@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                outFile.delete();
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(outFile1)));
             }
         });
@@ -198,6 +199,17 @@ public class MainActivity extends AppCompatActivity {
         return s;
     }
 
+
+    public static void copyStream(InputStream input, OutputStream output)
+            throws IOException {
+
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
+    }
+
     public static File changeExtension(File f, String newExtension) {
         int i = f.getName().lastIndexOf('.');
         String name = f.getName().substring(0,i);
@@ -216,16 +228,6 @@ public class MainActivity extends AppCompatActivity {
         }
         in.close();
         out.close();
-    }
-
-    public static void copyStream(InputStream input, OutputStream output)
-            throws IOException {
-
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = input.read(buffer)) != -1) {
-            output.write(buffer, 0, bytesRead);
-        }
     }
 
     public static Uri getImageStreamFromExternal(String imageName) {
