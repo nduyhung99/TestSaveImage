@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteImage() {
         File file1= new File(getPath(selectedImage));
+        file1.getName();
         file1.delete();
         Toast.makeText(MainActivity.this,"delete_image_successfully",Toast.LENGTH_SHORT).show();
         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file1)));
